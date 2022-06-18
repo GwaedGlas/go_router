@@ -94,8 +94,9 @@ class GoRouteInformationParser
           '${queryParams.isEmpty ? '' : ', queryParams: $queryParams'}');
       return true;
     }());
-    assert(_nameToPath.containsKey(name), 'unknown route name: $name');
-    final String path = _nameToPath[name]!;
+    final lowerCaseName = name.toLowerCase();
+    assert(_nameToPath.containsKey(lowerCaseName), 'unknown route name: $lowerCaseName');
+    final String path = _nameToPath[lowerCaseName]!;
     assert(() {
       // Check that all required params are present.
       final List<String> paramNames = <String>[];
@@ -118,7 +119,7 @@ class GoRouteInformationParser
     final String location = patternToPath(path, encodedParams);
     return Uri(path: location, queryParameters: queryParams).toString();
   }
-
+  
   /// Concatenates two paths.
   ///
   /// e.g: pathA = /a, pathB = c/d,  concatenatePaths(pathA, pathB) = /a/c/d.
